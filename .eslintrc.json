@@ -21,8 +21,8 @@
     ],
     "settings": {
         "import/resolver": {
-          "node": {
-            "extensions": [".js", ".jsx", ".ts", ".tsx"]
+            "node": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"]
             }
         }
     },
@@ -35,11 +35,12 @@
             "error",
             "ignorePackages",
             {
-              "js": "never",
-              "jsx": "never",
-              "ts": "never",
-              "tsx": "never"
+                "js": "never",
+                "jsx": "never",
+                "ts": "never",
+                "tsx": "never"
             }
-         ]
+        ],
+        "jsx-a11y/label-has-associated-control": ["error", { "assert": "either" } ]
     }
 }
