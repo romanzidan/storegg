@@ -1,3 +1,4 @@
+import Footer from '../../components/organisms/Footer';
 import Navbar from '../../components/organisms/Navbar';
 import TopUpForm from '../../components/organisms/TopUpForm';
 import TopUpItem from '../../components/organisms/TopUpItem';
@@ -24,6 +25,7 @@ export default function Detail() {
           </div>
         </div>
       </section>
+      <Footer />
     </>
   );
 }
