@@ -30,28 +30,16 @@ export default function EditProfile() {
                 <div className="pt-30">
                   <Input
                     label="Full Name"
-                    placeholder="Enter your name"
-                    type="text"
-                    name="name"
-                    aria-describedby="name"
                   />
                 </div>
                 <div className="pt-30">
                   <Input
                     label="Email Address"
-                    placeholder="Enter your email address"
-                    type="email"
-                    name="email"
-                    aria-describedby="email"
                   />
                 </div>
                 <div className="pt-30">
                   <Input
                     label="Phone"
-                    type="tel"
-                    name="phone"
-                    aria-describedby="phone"
-                    placeholder="Enter your phone number"
                   />
                 </div>
                 <div className="button-group d-flex flex-column pt-50">

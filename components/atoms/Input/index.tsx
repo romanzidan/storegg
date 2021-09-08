@@ -1,4 +1,4 @@
-interface InputProps{
+export interface InputProps{
     label: string;
 }
 
@@ -8,8 +8,11 @@ export default function Input(props: InputProps) {
     <>
       <label className="form-label text-lg fw-medium color-palette-1 mb-10">{label}</label>
       <input
-        type="tel"
         className="form-control rounded-pill text-lg"
+        placeholder="Enter your name"
+        type="text"
+        name="name"
+        aria-describedby="name"
         {...nativeProps}
       />
     </>
