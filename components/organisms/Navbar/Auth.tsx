@@ -20,7 +20,7 @@ export default function Auth(props: Partial<AuthProps>) {
             aria-expanded="false"
           >
             <img
-              src="img/avatar-1.png"
+              src="/img/avatar-1.png"
               className="rounded-circle"
               width="40"
               height="40"
