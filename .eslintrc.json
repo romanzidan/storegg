@@ -41,7 +41,7 @@
                 "tsx": "never"
             }
         ],
-        "jsx-a11y/label-has-associated-control": ["error", { "assert": "either" } ],
+        "jsx-a11y/label-has-associated-control": "off",
         "react/jsx-props-no-spreading": "off",
         "no-underscore-dangle": "off",
         "no-console": "off"
