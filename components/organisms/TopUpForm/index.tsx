@@ -1,7 +1,13 @@
+import { NominalTypes, PaymentTypes } from '../../../services/data-types';
 import NominalItem from './NominalItem';
 import PaymentItem from './PaymentItem';
 
-export default function TopUpForm(props) {
+interface TopUpFormProps{
+  nominals: NominalTypes[];
+  payments: PaymentTypes[];
+}
+
+export default function TopUpForm(props: TopUpFormProps) {
   const { nominals, payments } = props;
   return (
     <form action="./checkout.html" method="POST">
