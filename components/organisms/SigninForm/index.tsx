@@ -28,9 +28,15 @@ export default function SigninForm() {
     } else {
       const response = await setLogin(data);
       if (response.error) {
-        toast.error(response.message);
+        toast.error(response.message, {
+          position: 'top-left',
+          theme: 'colored',
+        });
       } else {
-        toast.success('Login Berhasil');
+        toast.success('Login Berhasil', {
+          position: 'top-left',
+          theme: 'colored',
+        });
         router.push('/');
       }
     }

@@ -19,10 +19,10 @@ export default function Detail() {
   const [nominals, setNominals] = useState([]);
 
   const getVoucherDetailAPI = useCallback(async (id) => {
-    const data = await getDetailVoucher(id);
-    setDataItem(data.detail);
-    setPayments(data.payments);
-    setNominals(data.detail.nominals);
+    const voucherAPI = await getDetailVoucher(id);
+    setDataItem(voucherAPI.data.detail);
+    setPayments(voucherAPI.data.payments);
+    setNominals(voucherAPI.data.detail.nominals);
   }, []);
 
   useEffect(() => {

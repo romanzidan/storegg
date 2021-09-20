@@ -19,10 +19,10 @@ export default function SignUpPhoto() {
   const router = useRouter();
 
   const getGameCategoryAPI = useCallback(async () => {
-    const data = await getGameCategory();
+    const categoriesAPI = await getGameCategory();
 
-    setCategories(data);
-    setFavorite(data[0]._id);
+    setCategories(categoriesAPI.data);
+    setFavorite(categoriesAPI.data[0]._id);
   }, [getGameCategory]);
 
   useEffect(() => {
@@ -31,12 +31,12 @@ export default function SignUpPhoto() {
 
   useEffect(() => {
     const getLocalForm = localStorage.getItem('user-form');
-    setLocalForm(JSON.parse(getLocalForm));
+    setLocalForm(JSON.parse(getLocalForm!));
   }, []);
 
   const onSubmit = async () => {
     const getLocalForm = await localStorage.getItem('user-form');
-    const form = JSON.parse(getLocalForm);
+    const form = JSON.parse(getLocalForm!);
     const data = new FormData();
 
     data.append('avatar', avatar);
@@ -48,7 +48,7 @@ export default function SignUpPhoto() {
     data.append('favorite', favorite);
 
     const result = await setSignUp(data);
-    if (result.error === 1) {
+    if (result.error) {
       toast.error(result.message, {
         position: 'top-center',
         theme: 'colored',
