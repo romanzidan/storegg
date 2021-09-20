@@ -2,7 +2,8 @@
 
 .sign-up input[type="password"],
 .sign-up input[type="email"],
-.sign-up input[type="text"]{
+.sign-up input[type="text"],
+.sign-up input[type="number"]{
     border: 1px solid #0C145A;
     padding: 0.75rem 1.625rem;
     color: #0C145A;
@@ -10,13 +11,15 @@
 
 .sign-up input[type="password"]:focus-within,
 .sign-up input[type="email"]:focus-within,
-.sign-up input[type="text"]:focus-within{
+.sign-up input[type="text"]:focus-within,
+.sign-up input[type="number"]:focus-within{
     color: #0C145A;
 }
 
 .sign-up input[type="password"]::placeholder,
 .sign-up input[type="email"]::placeholder,
-.sign-up input[type="text"]::placeholder{
+.sign-up input[type="text"]::placeholder,
+.sign-up input[type="number"]::placeholder{
     color: #CCD0DD;
 }
 

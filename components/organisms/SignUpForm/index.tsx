@@ -7,6 +7,8 @@ export default function SignUpForm() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [username, setUsername] = useState('');
 
   const router = useRouter();
   const className = {
@@ -15,9 +17,11 @@ export default function SignUpForm() {
 
   const onSubmit = () => {
     const userForm = {
-      email,
       name,
+      username,
+      email,
       password,
+      phoneNumber,
     };
 
     localStorage.setItem('user-form', JSON.stringify(userForm));
@@ -37,6 +41,21 @@ export default function SignUpForm() {
           placeholder="Enter your name"
           value={name}
           onChange={(event) => setName(event.target.value)}
+        />
+      </div>
+      <div className="pt-30">
+        <label htmlFor="username" className={className.label}>
+          Username
+
+        </label>
+        <input
+          type="text"
+          className="form-control rounded-pill text-lg"
+          id="username"
+          aria-describedby="email"
+          placeholder="Enter your username"
+          value={username}
+          onChange={(event) => setUsername(event.target.value)}
         />
       </div>
       <div className="pt-30">
@@ -65,6 +84,18 @@ export default function SignUpForm() {
           placeholder="Your password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
+        />
+      </div>
+      <div className="pt-30">
+        <label htmlFor="phone" className={className.label}>Phone Number</label>
+        <input
+          type="number"
+          className="form-control rounded-pill text-lg"
+          id="phone"
+          aria-describedby="phoneNumber"
+          placeholder="Enter your phone number"
+          value={phoneNumber}
+          onChange={(event) => setPhoneNumber(event.target.value)}
         />
       </div>
       <div className="button-group d-flex flex-column mx-auto pt-50">

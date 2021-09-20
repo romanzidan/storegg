@@ -50,3 +50,8 @@
     }
 
 /*  */
+
+.img-upload{
+    object-fit: cover;
+    border-radius:  100%;
+}
