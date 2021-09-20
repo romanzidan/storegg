@@ -1,22 +1,22 @@
 interface PaymentItemProps{
-  bankId: string;
+  bankID: string;
   type: string;
-  bankName: string;
+  name: string;
 }
 
 export default function PaymentItem(props: PaymentItemProps) {
-  const { bankId, type, bankName } = props;
+  const { bankID, type, name } = props;
   return (
     <label
       className="col-lg-4 col-sm-6 ps-md-15 pe-md-15 pt-md-15 pb-md-15 pt-10 pb-10"
-      htmlFor={bankId}
+      htmlFor={bankID}
     >
       <input
         className="d-none"
         type="radio"
-        id={bankId}
+        id={bankID}
         name="paymentMethod"
-        value={bankId}
+        value={bankID}
       />
       <div className="detail-card">
         <div className="d-flex justify-content-between">
@@ -39,7 +39,7 @@ export default function PaymentItem(props: PaymentItemProps) {
             />
           </svg>
         </div>
-        <p className="text-lg color-palette-1 m-0">{bankName}</p>
+        <p className="text-lg color-palette-1 m-0">{name}</p>
       </div>
     </label>
   );
