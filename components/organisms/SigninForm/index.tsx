@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { setLogin } from '../../../services/auth';
@@ -37,7 +38,10 @@ export default function SigninForm() {
           position: 'top-left',
           theme: 'colored',
         });
-        router.push('/');
+        const { token } = response.data;
+        const tokenBase64 = btoa(token);
+        Cookies.set('token', tokenBase64, { expires: 1 });
+        // router.push('/');
       }
     }
   };
