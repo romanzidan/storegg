@@ -1,7 +1,30 @@
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { getMemberOverview } from '../../../services/player';
 import Category from './Category';
 import TableRow from './TableRow';
 
 export default function OverviewContent() {
+  const [count, setCount] = useState([{
+    _id: '',
+    value: 0,
+    name: '',
+  }]);
+  const [data, setData] = useState([]);
+
+  useEffect(async () => {
+    const response = await getMemberOverview();
+    if (response.error) {
+      toast.error(response.message, {
+        position: 'top-center',
+        theme: 'dark',
+      });
+    } else {
+      setCount(response.data.count);
+      setData(response.data.data);
+      console.log(response.data);
+    }
+  }, []);
   return (
     <main className="main-wrapper">
       <div className="ps-lg-0">
@@ -10,33 +33,24 @@ export default function OverviewContent() {
           <p className="text-lg fw-medium color-palette-1 mb-14">Top Up Categories</p>
           <div className="main-content">
             <div className="row">
-              <div className="col-lg-4 ps-15 pe-15 pb-lg-0 pb-4">
-                <Category nominal={18000500} icon="desktop">
-                  Game
-                  {' '}
-                  <br />
-                  {' '}
-                  Desktop
-                </Category>
-              </div>
-              <div className="col-lg-4 ps-15 pe-15 pb-lg-0 pb-4">
-                <Category nominal={5080000} icon="mobile">
-                  Game
-                  {' '}
-                  <br />
-                  {' '}
-                  Mobile
-                </Category>
-              </div>
-              <div className="col-lg-4 ps-15 pe-15 pb-lg-0 pb-4">
-                <Category nominal={4676000} icon="desktop">
-                  Other
-                  {' '}
-                  <br />
-                  {' '}
-                  Categories
-                </Category>
-              </div>
+
+              {count.map((item) => (
+                <div
+                  key={item._id}
+                  className="col-lg-4 ps-15 pe-15 pb-lg-0 pb-4"
+                >
+                  <Category
+                    nominal={item.value}
+                    icon={item.name}
+                  >
+                    Game
+                    {' '}
+                    <br />
+                    {' '}
+                    {item.name}
+                  </Category>
+                </div>
+              ))}
             </div>
           </div>
         </div>

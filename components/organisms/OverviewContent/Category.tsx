@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 interface CategoryProps{
     children: ReactNode,
     nominal: number,
-    icon: 'desktop' | 'mobile';
+    icon: string
 }
 
 export default function Category(props: CategoryProps) {
