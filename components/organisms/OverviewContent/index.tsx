@@ -34,23 +34,44 @@ export default function OverviewContent() {
           <div className="main-content">
             <div className="row">
 
-              {count.map((item) => (
-                <div
-                  key={item._id}
-                  className="col-lg-4 ps-15 pe-15 pb-lg-0 pb-4"
-                >
-                  <Category
-                    nominal={item.value}
-                    icon={item.name}
+              {count.map((item) => {
+                if (item.name !== 'Desktop' && item.name !== 'Mobile') {
+                  return (
+                    <div
+                      key={item._id}
+                      className="col-lg-4 ps-15 pe-15 pb-lg-0 pb-4"
+                    >
+                      <Category
+                        nominal={item.value}
+                        icon="Desktop"
+                      >
+                        Game
+                        {' '}
+                        <br />
+                        {' '}
+                        {item.name}
+                      </Category>
+                    </div>
+                  );
+                }
+                return (
+                  <div
+                    key={item._id}
+                    className="col-lg-4 ps-15 pe-15 pb-lg-0 pb-4"
                   >
-                    Game
-                    {' '}
-                    <br />
-                    {' '}
-                    {item.name}
-                  </Category>
-                </div>
-              ))}
+                    <Category
+                      nominal={item.value}
+                      icon={item.name}
+                    >
+                      Game
+                      {' '}
+                      <br />
+                      {' '}
+                      {item.name}
+                    </Category>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
