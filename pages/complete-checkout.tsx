@@ -1,4 +1,21 @@
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+
 export default function CompleteCheckout() {
+  const router = useRouter();
+  const [data, setDataTopUp] = useState({
+    bankAccountName: '',
+  });
+  useEffect(() => {
+    const dataTopUpLocal = localStorage.getItem('data-topup');
+    const dataTopUp = JSON.parse(dataTopUpLocal!);
+    setDataTopUp(dataTopUp);
+  }, []);
+
+  const onSubmit = () => {
+    localStorage.clear();
+    router.push('/member');
+  };
   return (
     <section className="complete-checkout mx-auto pt-lg-145 pb-lg-145 pt-100 pb-80">
       <div className="container-fluid">
@@ -234,23 +251,23 @@ export default function CompleteCheckout() {
           </p>
         </div>
         <div className="button-group d-flex flex-column mx-auto">
-          <a
+          <button
+            type="button"
             className="btn btn-dashboard fw-medium text-lg text-white rounded-pill mb-16"
-            href="/member"
-            role="button"
+            onClick={onSubmit}
           >
             My
             Dashboard
-
-          </a>
+          </button>
           <a
             className="btn btn-whatsapp fw-medium text-lg color-palette-1 rounded-pill"
-            href="/#"
+            target="_blank"
+            href={`https://api.whatsapp.com/send?phone=6281345233332&text=Saya%20telah%20melakukan%20pembayaran%2C%20dengan%20nama%20${data.bankAccountName}`}
             role="button"
+            rel="noreferrer"
           >
             WhatsApp
             ke Admin
-
           </a>
         </div>
       </div>
