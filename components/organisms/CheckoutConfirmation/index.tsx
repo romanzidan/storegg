@@ -1,9 +1,13 @@
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { setCheckout } from '../../../services/player';
 
 export default function CheckoutConfirmation() {
   const [checkbox, setCheckbox] = useState(false);
-  const onSubmit = () => {
+  const router = useRouter();
+
+  const onSubmit = async () => {
     const dataItemLocal = localStorage.getItem('data-item');
     const dataTopUpLocal = localStorage.getItem('data-topup');
 
@@ -25,7 +29,17 @@ export default function CheckoutConfirmation() {
         name: dataTopUp.bankAccountName,
         accountUser: dataTopUp.verifyID,
       };
-      console.log('data: ', data);
+      const response = await setCheckout(data);
+      if (response.error) {
+        toast.error(response.message, {
+          theme: 'dark',
+          position: 'top-center',
+          pauseOnHover: false,
+        });
+      } else {
+        toast.success('Checkout Berhasil');
+        router.push('/complete-checkout');
+      }
     }
   };
   return (
