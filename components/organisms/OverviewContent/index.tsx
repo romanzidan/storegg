@@ -1,44 +1,30 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { HistoryTransactionTypes, TopUpCategoriesTypes } from '../../../services/data-types';
 import { getMemberOverview } from '../../../services/player';
 import Category from './Category';
 import TableRow from './TableRow';
 
 export default function OverviewContent() {
   const IMG = process.env.NEXT_PUBLIC_IMG;
-  const [count, setCount] = useState([{
-    _id: '',
-    value: 0,
-    name: '',
-  }]);
-  const [data, setData] = useState([{
-    _id: '',
-    historyVoucherTopup: {
-      gameName: '',
-      category: '',
-      thumbnail: '',
-      coinName: '',
-      coinQuantity: 0,
-      price: 0,
-    },
-    value: 0,
-    status: 'pending',
-  }]);
+  const [count, setCount] = useState([]);
+  const [data, setData] = useState([]);
+
+  const getMemberOverviewAPI = useCallback(async () => {
+    const response = await getMemberOverview();
+    if (response.error) {
+      toast.error(response.message, {
+        position: 'top-center',
+        theme: 'dark',
+      });
+    } else {
+      setCount(response.data.count);
+      setData(response.data.data);
+    }
+  }, []);
 
   useEffect(() => {
-    (async () => {
-      const response = await getMemberOverview();
-      if (response.error) {
-        toast.error(response.message, {
-          position: 'top-center',
-          theme: 'dark',
-        });
-      } else {
-        setCount(response.data.count);
-        setData(response.data.data);
-        console.log(response.data);
-      }
-    })();
+    getMemberOverviewAPI();
   }, []);
   return (
     <main className="main-wrapper">
@@ -48,34 +34,13 @@ export default function OverviewContent() {
           <p className="text-lg fw-medium color-palette-1 mb-14">Top Up Categories</p>
           <div className="main-content">
             <div className="row">
-              {count.map((item) => {
+              {count.map((item: TopUpCategoriesTypes) => {
                 if (item.name !== 'Desktop' && item.name !== 'Mobile') {
                   return (
-                    <div
-                      key={item._id}
-                      className="col-lg-4 ps-15 pe-15 pb-lg-0 pb-4"
-                    >
-                      <Category
-                        nominal={item.value}
-                        icon="Desktop"
-                      >
-                        Game
-                        {' '}
-                        <br />
-                        {' '}
-                        {item.name}
-                      </Category>
-                    </div>
-                  );
-                }
-                return (
-                  <div
-                    key={item._id}
-                    className="col-lg-4 ps-15 pe-15 pb-lg-0 pb-4"
-                  >
                     <Category
+                      key={item._id}
                       nominal={item.value}
-                      icon={item.name}
+                      icon="Desktop"
                     >
                       Game
                       {' '}
@@ -83,7 +48,20 @@ export default function OverviewContent() {
                       {' '}
                       {item.name}
                     </Category>
-                  </div>
+                  );
+                }
+                return (
+                  <Category
+                    key={item._id}
+                    nominal={item.value}
+                    icon={item.name}
+                  >
+                    Game
+                    {' '}
+                    <br />
+                    {' '}
+                    {item.name}
+                  </Category>
                 );
               })}
             </div>
@@ -102,7 +80,7 @@ export default function OverviewContent() {
                 </tr>
               </thead>
               <tbody>
-                {data.map((item) => (
+                {data.map((item: HistoryTransactionTypes) => (
                   <TableRow
                     key={item._id}
                     title={item.historyVoucherTopup.gameName}
