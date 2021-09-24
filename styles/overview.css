@@ -26,6 +26,10 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
+.overview .latest-transaction img{
+    object-fit: cover;
+    border-radius: 5px;
+}
 
 .overview .latest-transaction .game-title{
     white-space: nowrap; 

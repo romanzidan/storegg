@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import NumberFormat from 'react-number-format';
-import PaymentItem from '../TopUpForm/PaymentItem';
 
 export default function CheckoutDetail() {
   const [dataTopUp, setDataTopUP] = useState({
