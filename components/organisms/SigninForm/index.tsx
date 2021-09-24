@@ -21,21 +21,30 @@ export default function SigninForm() {
       password,
     };
     if (!email || !password) {
+      toast.dismiss();
       toast.error('Email dan Password wajib diisi!!', {
-        position: 'top-left',
+        position: 'top-center',
         theme: 'colored',
+        pauseOnHover: false,
+        hideProgressBar: true,
       });
     } else {
       const response = await setLogin(data);
       if (response.error) {
+        toast.dismiss();
         toast.error(response.message, {
-          position: 'top-left',
+          position: 'top-center',
           theme: 'colored',
+          pauseOnHover: false,
+          hideProgressBar: true,
         });
       } else {
+        toast.dismiss();
         toast.success('Login Berhasil', {
-          position: 'top-left',
+          position: 'top-center',
           theme: 'colored',
+          delay: 3000,
+          pauseOnHover: false,
         });
         const { token } = response.data;
         const tokenBase64 = btoa(token);

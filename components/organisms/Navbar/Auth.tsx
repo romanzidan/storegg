@@ -3,6 +3,7 @@ import jwtDecode from 'jwt-decode';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 import { JWTPayloadTypes, UserTypes } from '../../../services/data-types';
 
 export default function Auth() {
@@ -30,6 +31,12 @@ export default function Auth() {
     Cookies.remove('token');
     setIsLogin(false);
     router.push('/');
+    toast.success('Logout Berhasil !!', {
+      position: 'top-center',
+      theme: 'colored',
+      delay: 3000,
+      pauseOnHover: false,
+    });
   };
   if (isLogin) {
     return (
