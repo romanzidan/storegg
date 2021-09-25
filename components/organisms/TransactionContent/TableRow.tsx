@@ -1,13 +1,14 @@
 import classNames from 'classnames';
 import Link from 'next/link';
+import NumberFormat from 'react-number-format';
 
 interface TableRowProps{
     image:string,
     title:string,
     category:string,
-    item:number,
+    item:string,
     price:number,
-    status: 'Pending' | 'Success' | 'Failed'
+    status: string
 }
 
 export default function TableRow(props: TableRowProps) {
@@ -16,19 +17,23 @@ export default function TableRow(props: TableRowProps) {
   } = props;
   const statusClass = classNames({
     'float-start icon-status': true,
-    pending: status === 'Pending',
-    success: status === 'Success',
-    failed: status === 'Failed',
+    pending: status === 'pending',
+    success: status === 'success',
+    failed: status === 'failed',
   });
+  const capitalize = (s:string) => {
+    if (typeof s !== 'string') return '';
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  };
   return (
     <tr data-category="pending" className="align-middle">
       <th scope="row">
         <img
           className="float-start me-3 mb-lg-0 mb-3"
-          src={`/img/${image}.png`}
+          src={image}
           width="80"
           height="60"
-          alt=""
+          alt="Game Thumbnail"
         />
         <div className="game-title-header">
           <p className="game-title fw-medium text-start color-palette-1 m-0">
@@ -40,18 +45,24 @@ export default function TableRow(props: TableRowProps) {
       <td>
         <p className="fw-medium color-palette-1 m-0">
           {item}
-          {' '}
-          Gold
         </p>
       </td>
       <td>
-        <p className="fw-medium color-palette-1 m-0">{price}</p>
+        <p className="fw-medium color-palette-1 m-0">
+          <NumberFormat
+            value={price}
+            prefix="Rp. "
+            displayType="text"
+            thousandSeparator="."
+            decimalSeparator=","
+          />
+        </p>
       </td>
       <td>
         <div>
           <span className={statusClass} />
           <p className="fw-medium text-start color-palette-1 m-0 position-relative">
-            {status}
+            {capitalize(status)}
           </p>
         </div>
       </td>
