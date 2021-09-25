@@ -4,6 +4,7 @@ import NumberFormat from 'react-number-format';
 import TableRow from './TableRow';
 import ButtonTab from './ButtonTab';
 import { getMemberTransactions } from '../../../services/member';
+import { HistoryTransactionTypes } from '../../../services/data-types';
 
 export default function TransactionContent() {
   const IMG = process.env.NEXT_PUBLIC_IMG;
@@ -73,9 +74,10 @@ export default function TransactionContent() {
                   </tr>
                 </thead>
                 <tbody id="list_status_item">
-                  {transactions.map((transaction) => (
+                  {transactions.map((transaction: HistoryTransactionTypes) => (
                     <TableRow
                       key={transaction._id}
+                      id={transaction._id}
                       title={transaction.historyVoucherTopup.gameName}
                       category={transaction.historyVoucherTopup.category}
                       item={`${transaction.historyVoucherTopup.coinQuantity} ${transaction.historyVoucherTopup.coinName}`}
