@@ -1,13 +1,18 @@
 import SideBar from '../../../components/organisms/SideBar';
 import TransactionDetailContent from '../../../components/organisms/TransactionDetailContent';
+import { HistoryTransactionTypes } from '../../../services/data-types';
 import { getTransactionDetail } from '../../../services/member';
 
-export default function TransactionsDetail({ transactionDetail }) {
-  console.log('detail: ', transactionDetail);
+interface TransactionsDetailProps{
+  transactionDetail: HistoryTransactionTypes
+}
+
+export default function TransactionsDetail(props: TransactionsDetailProps) {
+  const { transactionDetail } = props;
   return (
     <>
       <SideBar activeMenu="transactions" />
-      <TransactionDetailContent />
+      <TransactionDetailContent data={transactionDetail} />
     </>
   );
 }
