@@ -1,5 +1,6 @@
 export interface InputProps{
     label: string;
+    value: string;
 }
 
 export default function Input(props: InputProps) {

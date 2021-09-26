@@ -42,6 +42,7 @@ export interface UserTypes{
   username: string;
   email: string;
   name: string;
+  phoneNumber: string;
   avatar: string;
 }
 
