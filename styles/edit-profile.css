@@ -40,6 +40,11 @@
     height: 0;
 }
 
+.edit-profile img.avatar{
+    object-fit: cover;
+    height: 90px;
+}
+
 .edit-profile input[type="tel"],
 .edit-profile input[type="email"],
 .edit-profile input[type="text"]{
