@@ -14,15 +14,16 @@ export default function Row(props: Partial<RowProps>) {
       <span
         className={`purchase-details ${className}`}
       >
-        <NumberFormat
-          value={value}
-          prefix="Rp. "
-          displayType="text"
-          thousandSeparator="."
-          decimalSeparator=","
-        />
+        {typeof value === 'string' ? value : (
+          <NumberFormat
+            value={value}
+            prefix="Rp. "
+            displayType="text"
+            thousandSeparator="."
+            decimalSeparator=","
+          />
+        )}
 
-        {value}
       </span>
     </p>
   );
