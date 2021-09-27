@@ -1,36 +1,17 @@
-import { useRouter } from 'next/router';
-import { useCallback, useEffect, useState } from 'react';
 import Footer from '../../components/organisms/Footer';
 import Navbar from '../../components/organisms/Navbar';
 import TopUpForm from '../../components/organisms/TopUpForm';
 import TopUpItem from '../../components/organisms/TopUpItem';
-import { getDetailVoucher } from '../../services/player';
+import { GameItemTypes, NominalTypes, PaymentTypes } from '../../services/data-types';
+import { getDetailVoucher, getFeaturedGame } from '../../services/player';
 
-export default function Detail() {
-  const { query, isReady } = useRouter();
-  const [dataItem, setDataItem] = useState({
-    name: '',
-    thumbnail: '',
-    category: {
-      name: '',
-    },
-  });
-  const [payments, setPayments] = useState([]);
-  const [nominals, setNominals] = useState([]);
+interface DetailProps{
+  dataItem: GameItemTypes;
+  nominals: NominalTypes[];
+  payments: PaymentTypes[];
+}
 
-  const getVoucherDetailAPI = useCallback(async (id) => {
-    const voucherAPI = await getDetailVoucher(id);
-    setDataItem(voucherAPI.data.detail);
-    localStorage.setItem('data-item', JSON.stringify(voucherAPI.data.detail));
-    setPayments(voucherAPI.data.payments);
-    setNominals(voucherAPI.data.detail.nominals);
-  }, []);
-
-  useEffect(() => {
-    if (isReady) {
-      getVoucherDetailAPI(query.id);
-    }
-  }, [isReady]);
+export default function Detail({ dataItem, nominals, payments }: DetailProps) {
   return (
     <>
       <Navbar />
@@ -55,4 +36,37 @@ export default function Detail() {
       <Footer />
     </>
   );
+}
+
+export async function getStaticPaths() {
+  const gameListAPI = await getFeaturedGame();
+  const gameList = gameListAPI.data;
+  const paths = gameList.map((item: GameItemTypes) => ({
+    params: {
+      id: item._id,
+    },
+  }));
+  return {
+    paths,
+    fallback: false,
+  };
+}
+
+interface GetStaticProps{
+  params: {
+    id: string
+  }
+}
+
+export async function getStaticProps({ params }: GetStaticProps) {
+  const { id } = params;
+  const dataVoucherDetail = await getDetailVoucher(id);
+  const { data } = dataVoucherDetail;
+  return {
+    props: {
+      dataItem: data.detail,
+      nominals: data.detail.nominals,
+      payments: data.payments,
+    },
+  };
 }
