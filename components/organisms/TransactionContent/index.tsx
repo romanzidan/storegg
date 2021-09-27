@@ -29,7 +29,7 @@ export default function TransactionContent() {
     getMemberTransactionsAPI('all');
   }, []);
 
-  const onTabClick = (value:any) => {
+  const onTabClick = (value:string) => {
     setTab(value);
     getMemberTransactionsAPI(value);
   };

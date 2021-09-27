@@ -10,8 +10,8 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function SignUpPhoto() {
   const [categories, setCategories] = useState([]);
   const [favorite, setFavorite] = useState('');
-  const [avatar, setAvatar] = useState('');
-  const [avatarPreview, setAvatarPreview] = useState('/icon/upload.svg');
+  const [avatar, setAvatar] = useState<any>('');
+  const [avatarPreview, setAvatarPreview] = useState<any>('/icon/upload.svg');
   const [localForm, setLocalForm] = useState({
     name: '',
     email: '',
@@ -79,7 +79,7 @@ export default function SignUpPhoto() {
                     name="avatar"
                     accept="image/png, image/jpeg"
                     onChange={(event) => {
-                      const img = event.target.files[0];
+                      const img = event.target.files![0];
                       setAvatarPreview(URL.createObjectURL(img));
                       return setAvatar(img);
                     }}

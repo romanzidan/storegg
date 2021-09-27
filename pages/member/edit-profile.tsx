@@ -9,27 +9,33 @@ import { JWTPayloadTypes, UserTypes } from '../../services/data-types';
 import { updateProfile } from '../../services/member';
 
 interface UserProps{
-  user : UserTypes
+  user: UserTypes
 }
 
-export default function EditProfile(props: UserProps) {
+interface dataUserProps{
+  name: string;
+  username: string;
+  phoneNumber: string;
+  avatar: any;
+}
+
+export default function EditProfile({ user }: UserProps) {
   const router = useRouter();
-  const { user } = props;
-  const [dataUser, setDataUser] = useState({
+  const [dataUser, setDataUser] = useState<dataUserProps>({
     name: '',
     avatar: '',
     username: '',
     phoneNumber: '',
   });
   const IMG = process.env.NEXT_PUBLIC_IMG;
-  const [avatarPreview, setAvatarPreview] = useState(null);
+  const [avatarPreview, setAvatarPreview] = useState('/');
 
   useEffect(() => {
     setDataUser(user);
   }, []);
 
   const onDeletePreviewAvatar = () => {
-    setAvatarPreview(null);
+    setAvatarPreview('/');
     setDataUser({
       ...dataUser,
       avatar: user.avatar,
@@ -70,10 +76,10 @@ export default function EditProfile(props: UserProps) {
               <form action="">
                 <div className="photo d-flex">
                   <div className="position-relative me-20">
-                    {avatarPreview ? (
-                      <img src={avatarPreview} width={90} height={90} alt="" className="avatar img-fluid rounded-circle" />
-                    ) : (
+                    {avatarPreview === '/' ? (
                       <img src={`${IMG}/${dataUser.avatar}`} width="90" height="90" alt="" className="avatar img-fluid rounded-circle" />
+                    ) : (
+                      <img src={avatarPreview} width={90} height={90} alt="" className="avatar img-fluid rounded-circle" />
                     )}
                     <div
                       className="avatar-overlay position-absolute top-0 d-flex justify-content-center align-items-center"
@@ -93,7 +99,7 @@ export default function EditProfile(props: UserProps) {
                       name="avatar"
                       accept="image/png, image/jpeg"
                       onChange={(event) => {
-                        const img = event.target.files[0];
+                        const img = event.target.files![0];
                         setAvatarPreview(URL.createObjectURL(img));
                         return setDataUser({
                           ...dataUser,

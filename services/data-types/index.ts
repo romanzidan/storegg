@@ -43,7 +43,7 @@ export interface UserTypes{
   email: string;
   name: string;
   phoneNumber: string;
-  avatar: string;
+  avatar: any;
 }
 
 export interface JWTPayloadTypes{
