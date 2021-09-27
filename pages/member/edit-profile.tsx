@@ -1,17 +1,26 @@
 import Cookies from 'js-cookie';
 import jwtDecode from 'jwt-decode';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import Input from '../../components/atoms/Input';
 import SideBar from '../../components/organisms/SideBar';
 import { JWTPayloadTypes, UserTypes } from '../../services/data-types';
+import { updateProfile } from '../../services/member';
 
 interface UserProps{
   user : UserTypes
 }
 
 export default function EditProfile(props: UserProps) {
+  const router = useRouter();
   const { user } = props;
-  const [dataUser, setDataUser] = useState({});
+  const [dataUser, setDataUser] = useState({
+    name: '',
+    avatar: '',
+    username: '',
+    phoneNumber: '',
+  });
   const IMG = process.env.NEXT_PUBLIC_IMG;
   const [avatarPreview, setAvatarPreview] = useState(null);
 
@@ -27,8 +36,27 @@ export default function EditProfile(props: UserProps) {
     });
   };
 
-  const onSubmit = () => {
-    console.log('data: ', dataUser);
+  const onSubmit = async () => {
+    const data = new FormData();
+
+    data.append('name', dataUser.name);
+    data.append('username', dataUser.username);
+    data.append('phoneNumber', dataUser.phoneNumber);
+    data.append('avatar', dataUser.avatar);
+
+    const response = await updateProfile(data);
+    if (response.error) {
+      toast.error(response.message);
+    } else {
+      toast.success('Edit Profile Berhasil, Silahkan Login Kembali !!', {
+        position: 'top-center',
+        theme: 'colored',
+        pauseOnHover: false,
+        hideProgressBar: true,
+      });
+      Cookies.remove('token');
+      router.push('/sign-in');
+    }
   };
 
   return (
@@ -87,11 +115,11 @@ export default function EditProfile(props: UserProps) {
                 </div>
                 <div className="pt-30">
                   <Input
-                    label="Email Address"
-                    value={dataUser.email}
+                    label="Username"
+                    value={dataUser.username}
                     onChange={(event) => setDataUser({
                       ...dataUser,
-                      email: event.target.value,
+                      username: event.target.value,
                     })}
                   />
                 </div>

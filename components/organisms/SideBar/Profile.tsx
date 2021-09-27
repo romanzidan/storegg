@@ -22,7 +22,11 @@ export default function Profile() {
   }, []);
   return (
     <div className="user text-center pb-50 pe-30">
-      <Image src={`${imgAPI}/${user.avatar}`} width={90} height={90} alt="avatar" className="img-fluid mb-20 rounded-circle" />
+      {user.avatar ? (
+        <Image src={`${imgAPI}/${user.avatar}`} width={90} height={90} alt="avatar" className="img-fluid mb-20 rounded-circle" />
+      ) : (
+        <p>Loading...</p>
+      )}
       <h2 className="fw-bold text-xl color-palette-1 m-0">{user.name}</h2>
       <p className="color-palette-2 m-0">{user.email}</p>
     </div>
