@@ -5,12 +5,7 @@ import CheckoutDetail from '../components/organisms/CheckoutDetail';
 import CheckoutConfirmation from '../components/organisms/CheckoutConfirmation';
 import { JWTPayloadTypes, UserTypes } from '../services/data-types';
 
-interface CheckoutProps{
-  user: UserTypes
-}
-
-export default function Checkout(props: CheckoutProps) {
-  const { user } = props;
+export default function Checkout() {
   return (
     <section className="checkout mx-auto pt-md-100 pb-md-145 pt-30 pb-30">
       <div className="container-fluid">
